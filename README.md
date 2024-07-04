@@ -1,7 +1,7 @@
 ﻿# Bot-De-Analises-Para-Apostas-Esportivas
 
-Bibliotecas necessárias:
+## Bibliotecas necessárias:
 
--requests
--selenium
--bs4
+### -requests
+### -selenium
+### -bs4
