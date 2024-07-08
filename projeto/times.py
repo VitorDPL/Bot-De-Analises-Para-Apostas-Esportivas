@@ -2,15 +2,13 @@ melhores_opcoes = {
     "Brasileirão Série A": 
     {
         "Atlético-MG" : ["Over 1.5 Gols"],
-        "Flamengo": ["Over 0.5 Gols Casa", "Vitória"],
-        "Acassuso" : ["Under"],
-        "Vasco" : ["Under"],
-        "DVTK" : ["Under"]
+        "Flamengo": ["Over 0.5 Gols Casa", "Vitória em casa", "Dupla chance em casa"],
+        "El-Gaish" : ["Vitória fora de casa"],
     },
     
     "Seleções":
     {
-        "Fasil Ketema" : ["Over 0.5 Gols"],
-        "Arba Minch" : ["Over"]
+        "Pharco" : ["Vitória em casa", "Dupla chance em casa"],
+        "Brommapojkarna" : ["Dupla chance fora de casa"]
     }
 }

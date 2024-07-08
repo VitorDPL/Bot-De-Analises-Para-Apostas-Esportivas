@@ -1,11 +1,20 @@
 import requests
+from times import melhores_opcoes
 
-def extrai_times(melhores_opcoes):
+def extrai_times():
     times_extraidos = []
     for campeonato in melhores_opcoes.values():
         for time in campeonato.keys():
             times_extraidos.append(time)
     return times_extraidos
+
+def verifica_condicoes(nome_do_time, entrada):
+    for campeonato, times_opcoes in melhores_opcoes.items():
+        for time, opcoes in times_opcoes.items():
+            if entrada in opcoes and time == nome_do_time:
+                print(f"Encontrado: {time} no {campeonato} com a entrada '{entrada}'")
+                return True
+    return False
 
 def formata_mensagem(tipo_de_entrada):
     mensagens = ""
@@ -34,6 +43,8 @@ def formata_mensagem(tipo_de_entrada):
                 f"🔎 Link do jogo: {item['Link do jogo']}\n"
                 "-------------------------------------------------------------------------------------------------\n"
             )
+
+
         mensagens += mensagem
     return mensagens
 
@@ -49,3 +60,31 @@ def send_message(token, chat_id, message):
             print(f'Erro ao enviar mensagem, código de status: {response.status_code}')
     except Exception as e:
         print("Erro no sendMessage:", e)
+
+
+def verifica_se_a_mensagem_ja_foi_enviada(mensagem_atual, mensagens_enviadas,token, chat_id, message):
+
+
+    # Mostra mensagens já enviadas antes da comparação
+    print("Mensagens enviadas antes:")
+    for item in mensagens_enviadas:
+        print(item)
+    print("-" * 50)
+
+    for mensagem in mensagem_atual[:]:
+        foi_enviada = False
+        for enviada in mensagens_enviadas:
+            if mensagem["Casa"] == enviada["Casa"] and mensagem["Entrada"] == enviada["Entrada"]:
+                print(f"Iguais: {mensagem}")
+                foi_enviada = True
+
+        if not foi_enviada:
+            print(f"Diferentes: {mensagem}")
+            mensagens_enviadas.append(mensagem)
+            send_message(token, chat_id, message)
+
+    # Mostra mensagens após a comparação
+    print("Mensagens enviadas após:")
+    for item in mensagens_enviadas:
+        print(item)
+    print("-" * 50)
