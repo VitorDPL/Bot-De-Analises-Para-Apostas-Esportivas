@@ -221,7 +221,7 @@ def executar_ao_vivo(tempo_rodando):
         chat_id = meu_chat_id  
 
         # verifica se a mensagem já foi enviada anteriormente (chama a função send_message dentro)
-        verifica_se_a_mensagem_ja_foi_enviada(entradas_para_enviar, entradas_ja_enviadas_para_o_telegram,token, chat_id, formata_mensagem(entradas_para_enviar))
+        verifica_se_a_mensagem_ja_foi_enviada(entradas_para_enviar, entradas_ja_enviadas_para_o_telegram, token, chat_id)
 
         time.sleep(60)
         tempo_que_o_sistema_vai_rodar -= 60

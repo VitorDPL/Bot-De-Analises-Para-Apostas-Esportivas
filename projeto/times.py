@@ -8,9 +8,9 @@ melhores_opcoes = {
     
     "Seleções":
     {
-        "Flora" : ["Vitória em casa", "Dupla chance em casa"],
+        "Sheriff" : ["Vitória em casa", "Dupla chance em casa"],
         "Brommapojkarna" : ["Dupla chance fora de casa"],
-        "Uruguai" : ["Dupla chance em casa", "Vitória em casa"]
+        "Paksi" : ["Dupla chance em casa", "Vitória em casa"]
     },
 
 }

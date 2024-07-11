@@ -62,28 +62,26 @@ def send_message(token, chat_id, message):
         print("Erro no sendMessage:", e)
 
 
-def verifica_se_a_mensagem_ja_foi_enviada(mensagem_atual, mensagens_enviadas,token, chat_id, message):
-
-
-    # Mostra mensagens já enviadas antes da comparação
+def verifica_se_a_mensagem_ja_foi_enviada(mensagem_atual, mensagens_enviadas, token, chat_id):
     print("Mensagens enviadas antes:")
     for item in mensagens_enviadas:
         print(item)
     print("-" * 50)
 
-    for mensagem in mensagem_atual[:]:
+    for mensagem in mensagem_atual:
         foi_enviada = False
         for enviada in mensagens_enviadas:
             if mensagem["Casa"] == enviada["Casa"] and mensagem["Entrada"] == enviada["Entrada"]:
                 print(f"Iguais: {mensagem}")
                 foi_enviada = True
+                break 
 
         if not foi_enviada:
             print(f"Diferentes: {mensagem}")
             mensagens_enviadas.append(mensagem)
-            send_message(token, chat_id, message)
-
-    # Mostra mensagens após a comparação
+            formatted_message = formata_mensagem([mensagem]) 
+            send_message(token, chat_id, formatted_message)
+            
     print("Mensagens enviadas após:")
     for item in mensagens_enviadas:
         print(item)
