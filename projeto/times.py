@@ -3,12 +3,13 @@ melhores_opcoes = {
     {
         "Atlético-MG" : ["Over 1.5 Gols"],
         "Flamengo": ["Over 0.5 Gols Casa", "Vitória em casa", "Dupla chance em casa"],
-        "El-Gaish" : ["Vitória fora de casa"],
+        "Palmeiras" : ["Vitória em casa", "Dupla chance em casa"],
     },
     
     "Seleções":
     {
-        "Pharco" : ["Vitória em casa", "Dupla chance em casa"],
-        "Brommapojkarna" : ["Dupla chance fora de casa"]
+        "Flora" : ["Vitória em casa", "Dupla chance em casa"],
+        "Brommapojkarna" : ["Dupla chance fora de casa"],
+        "Inglaterra" : ["Vitória fora de casa"]
     }
 }
