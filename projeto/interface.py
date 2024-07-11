@@ -3,21 +3,20 @@ import customtkinter
 from main import *
 
 # Configurações iniciais
-customtkinter.set_appearance_mode("dark")  # Modo de aparência "dark"
-customtkinter.set_default_color_theme("green")  # Tema de cores "green"
+customtkinter.set_appearance_mode("dark")  
+customtkinter.set_default_color_theme("green")  
 
 app = customtkinter.CTk()
 app.title('Bot Para Análises Esportivas')
-app.geometry("1000x600")  # Tamanho inicial da janela
+app.geometry("1000x600")  
 
 # Configuração para expandir as células da grade
-for i in range(10):  # Ajuste de acordo com o número máximo de linhas ou colunas ocupadas
+for i in range(10):
     app.grid_rowconfigure(i, weight=1)
     app.grid_columnconfigure(i, weight=1)
 
 # Dicionário com os tempos disponíveis
 tempos_disponiveis_para_o_sistema_rodar = {
-    "2 min e 30 seg" : "150",
     "5 minutos (Teste do bot)": 300,
     "10 minutos" : 600,
     "15 minutos" : 900,
@@ -63,7 +62,7 @@ tempo_rodando_txt.grid(row=3, column=0, padx=10, pady=20, sticky='nswe', columns
 tempo_rodando = customtkinter.CTkComboBox(app, values=list(tempos_disponiveis_para_o_sistema_rodar.keys()), font=("Arial", 18), justify="center")
 tempo_rodando.grid(row=4, column=0, padx=10, pady=10, sticky='nswe', columnspan=5)
 
-# Botão para buscar peças
+# Botão para iniciar a busca
 buscar_botao = customtkinter.CTkButton(app, text='Executar Análise Ao Vivo', font=("Arial", 20), command=lambda: executar_ao_vivo(pegar_valor()))
 buscar_botao.grid(row=5, column=0, padx=20, pady=30, sticky='nswe', columnspan=5)
 
@@ -76,9 +75,9 @@ link_jogo_txt.grid(row=3, column=6, padx=10, pady=20, sticky='nswe', columnspan=
 link_jogo = customtkinter.CTkEntry(app)
 link_jogo.grid(row= 4, column = 6 ,padx=10, pady=10, sticky='nswe', columnspan=6)
 
-# Botão para buscar peças
-buscar_botao = customtkinter.CTkButton(app, text='Analisar jogo único', font=("Arial", 20))
-buscar_botao.grid(row= 5, column=6, padx=20, pady=30, sticky='nswe', columnspan=6)
+# Botão para iniciar a leitura do jogo
+buscar_botao_leitura = customtkinter.CTkButton(app, text='Analisar jogo único', font=("Arial", 20))
+buscar_botao_leitura.grid(row= 5, column=6, padx=20, pady=30, sticky='nswe', columnspan=6)
 
 
 text= """
