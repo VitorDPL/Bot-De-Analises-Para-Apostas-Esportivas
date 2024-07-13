@@ -131,60 +131,57 @@ def executar_ao_vivo(tempo_rodando):
                 # Cria uma cópia profunda do dicionário atual
                 item_copia = copy.deepcopy(item)
 
+                time_casa = item_copia["Casa"]
+                time_fora = item_copia["Fora"]
+
+                placar_time_casa = item_copia["Placar"][0]
+                placar_time_fora = item_copia["Placar"][4]
+
+                tempo_de_jogo = item_copia["Tempo de jogo"]
+    
                 # lógica VITÓRIA do time (MANDANTE ou VISITANTE).
                 try:
-                    # Verificando se a odd foi capturada
-                    if (float(item_copia.get("Odd vitória casa")) and 
-                        float(item_copia.get("Odd vitória fora"))):
+                    if not verifica_se_dois_times_sao_favoritos(time_casa= time_casa, time_fora= time_fora, melhores_times= melhores_times):
+                        # Verificando se a odd foi capturada
+                        if (float(item_copia.get("Odd vitória casa")) and 
+                            float(item_copia.get("Odd vitória fora"))):
 
-                        # verifica se o time joga em casa.
-                        if item_copia["Casa"] in melhores_times:
-                            # verifica se o jogo está empatado.
-                            if item_copia["Placar"][0] == item_copia["Placar"][4]:
-                                # verifica se a odd é superior a 1.6 e se o time é um bom vencedor jogando em casa
-                                try:
-                                    if (float(item_copia["Odd vitória casa"]) > 1.6 and
-                                        verifica_condicoes(item["Casa"], "Vitória em casa")):
-                                        item_copia["Entrada"] = f"VITÓRIA DO TIME FAVORITO ({item_copia['Casa']})"
-                                        entradas_para_enviar.append(item_copia)
-                                        print(f"Jogo empatado. O {item['Casa']} é bom para vencer em casa e a odd é superior a 1.6.")
-            
-                                    else:
-                                        print(f"O {item['Casa']} não é bom para vencer em casa")
-                                except:
-                                    pass
-                                    
-                            # verifica se o time favorito está perdendo em casa.
-                            elif item_copia["Placar"][0] < item_copia["Placar"][4]:
-                                # verifica se entrar em dupla chance do time é algo coerente.
-                                if verifica_condicoes(item["Casa"], "Dupla chance em casa"):
-                                    item_copia["Entrada"] = f"DUPLA CHANCE TIME FAVORITO ({item_copia['Casa']})"
-                                    entradas_para_enviar.append(item_copia)
-                                    print(f"{item['Casa']} perdendo em casa. Opte por entrar na dupla chance do favorito.")
-                                else:
-                                    print(f"{item['Casa']} está perdendo em casa, mas não é o ideal entrar em um dupla chance no momento.")
-                                    
-                        # time jogando fora de casa 
-                        if item_copia["Fora"] in melhores_times:
-                            # verifica se o jogo está empatado.
-                            if item_copia["Placar"][0] == item_copia["Placar"][4]:
-                                try:
-                                    if (float(item_copia["Odd vitória fora"]) > 1.6 and
-                                        verifica_condicoes(item["Fora"], "Vitória fora de casa")):
-                                        item_copia["Entrada"] = f"VITÓRIA DO TIME FAVORITO ({item_copia['Fora']})"
-                                        entradas_para_enviar.append(item_copia)
-                                        print(f"{item['Fora']} bom para vencer fora de casa e a odd é superior a 1.6.")
-                                except:
-                                    pass
-                                    
-                            elif (item_copia["Placar"][0] > item_copia["Placar"][4] and 
-                                verifica_condicoes(item["Fora"], "Dupla chance fora de casa")):
-                                    item_copia["Entrada"] = f"DUPLA CHANCE DO TIME FAVORITO ({item_copia['Fora']})"
-                                    entradas_para_enviar.append(item_copia)
-                                    print(f"{item['Fora']} bom para ao menos empatar fora de casa.")
+                            # verifica se o time joga em casa.
+                            if time_casa in melhores_times:
+                                # verifica se o jogo está empatado.
+                                if placar_time_casa == placar_time_fora:
+                                    # verifica se a odd é superior a 1.6 e se o time é um bom vencedor jogando em casa
+                                    try:
+                                        # envia uma entrada de vitória
+                                        entrada_vitoria_time_da_casa(objeto_com_todas_as_entradas= item_copia, item_da_lista_de_objetos= item, time_casa= time_casa, lista_de_entradas_para_enviar= entradas_para_enviar)
+                                    except:
+                                        pass
+                                        
+                                # verifica se o time favorito está perdendo em casa.
+                                elif placar_time_casa < placar_time_fora:
+                                    # verifica se entrar em dupla chance do time é algo coerente.
+                                    entrada_dupla_chance_time_da_casa(objeto_com_todas_as_entradas= item_copia, item_da_lista_de_objetos= item, time_casa= time_casa, lista_de_entradas_para_enviar= entradas_para_enviar)
+                                        
+                            # time jogando fora de casa 
+                            if time_fora in melhores_times:
+                                # verifica se o jogo está empatado.
+                                if placar_time_casa == placar_time_fora:
+                                    try:
+                                        entrada_vitoria_time_fora(objeto_com_todas_as_entradas= item_copia, item_da_lista_de_objetos= item, time_fora = time_fora, lista_de_entradas_para_enviar= entradas_para_enviar)
+                                    except:
+                                        pass
+                                        
+                                    # se o time favorito estiver perdendo fora de casa
+                                elif placar_time_casa > placar_time_fora: 
+                                    entrada_dupla_chance_time_fora(objeto_com_todas_as_entradas= item_copia, item_da_lista_de_objetos= item, time_fora = time_fora, lista_de_entradas_para_enviar= entradas_para_enviar)
                             
-                
-                
+                            if (time_casa in melhores_times or time_fora in melhores_times) and tempo_de_jogo > 60:
+                                entrada_ao_menos_um_gol_no_jogo(item_da_lista_de_objetos= item, lista_de_entradas_para_enviar= entradas_para_enviar)
+                                
+
+                    else:
+                        print(f"Ambas as equipes são favoritas no jogo entre {time_casa} x {time_fora}")
+
                 except Exception as e:
                     # Trata qualquer exceção que possa ocorrer
                     print(f"Erro ao processar item: {e}")
@@ -195,17 +192,10 @@ def executar_ao_vivo(tempo_rodando):
 
         for item in objetos_times:
             try:
-                placar_separado = item["Placar"].split(' - ')
-                soma_placar = int(placar_separado[0]) + int(placar_separado[1])
+                entrada_ao_menos_um_gol_no_jogo(item_da_lista_de_objetos= item, lista_de_entradas_para_enviar= entradas_para_enviar)
 
-                if (item["Casa"] and verifica_condicoes(item["Casa"], "Over 0.5 gols em casa") or
-                item["Fora"] and verifica_condicoes(item["Fora"], "Over 0.5 gols fora") and
-                # se o placar for 0 e o tempo for diferente de "INT" e passar dos 62 minutos...
-                (soma_placar == 0 and item["Tempo de jogo"].strip("'") != "INT" and int(item["Tempo de jogo"].strip("'")) > 15)):
-                    item["Entrada"] = f"Over 0.5 Gols no jogo."
-                    entradas_para_enviar.append(item)
-                    # deletando a chave de ODDS para não confundir o usuário.
-                    del item["Odd vitória casa"]
+                    # # deletando a chave de ODDS para não confundir o usuário.
+                    # del item["Odd vitória casa"]
 
             except ValueError as e:
                 pass    

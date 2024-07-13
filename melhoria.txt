@@ -1,0 +1,3 @@
+-se ja tiver enviado a vitoria, nao envie o dupla chance. O mesmo p o contrário. A questão é: se ja tiver entrada de vitoria ou dupla chance, envie no máximo uma entrada de over 0.5 gols.
+
+-gol do time dentro de casa
